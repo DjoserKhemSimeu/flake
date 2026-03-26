@@ -24,6 +24,7 @@
     lazygit
     minikube
     docker
+    nvtopPackages.nvidia
     catppuccin-discord
     discord
     fastfetch

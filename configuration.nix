@@ -101,6 +101,20 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.defaultSession = "hyprland";
   services.displayManager.sddm.autoNumlock = false;
+  # Docker setup
+  virtualisation.docker.enable = true;
+  users.users.simeud = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "docker"
+    ]; # Ensure 'docker' is here
+  };
+
+  services.xserver.videoDrivers = [
+    "modesetting" # example for Intel iGPU; use "amdgpu" here instead if your iGPU is AMD
+    "nvidia"
+  ];
 
   # Hyprland setup
   programs.hyprland = {
@@ -154,11 +168,17 @@
     startupProfile = "keyboard_purple_white.orp";
   };
 
+  #Ollama conf
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+  };
+
   # Install and configure chromium
   programs.chromium = {
     enable = true;
     extensions = [
-     
+
     ];
     # Option list: https://chromeenterprise.google/policies
     extraOpts = {
@@ -178,6 +198,10 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    (ollama.override { 
+      acceleration = "cuda";
+    })
+    nvidia-vaapi-driver
     vim
     git
     home-manager
