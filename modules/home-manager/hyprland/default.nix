@@ -5,7 +5,7 @@
     ./hyprlock.nix
     ./hyprpaper.nix
     ./noctalia.nix
-  ];A
+  ];
 
   home.packages = with pkgs; [
     brightnessctl
