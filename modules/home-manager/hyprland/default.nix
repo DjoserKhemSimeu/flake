@@ -112,15 +112,16 @@
       }
 
       $mod = ALT
-
+      $ipc = noctalia-shell ipc call
       # Misc
-      bind = $mod, D, exec, hyprlauncher
+      bind = $mod, D, exec, $ipc launcher toggle
+      bind =  ,SUPER, exec, $ipc launcher toggle
       bind = $mod, RETURN, exec, ghostty
       bind = $mod, F, fullscreen,
       bind = $mod, A, killactive,
       bind = $mod, E, exec, dolphin
       bind = $mod, V, togglefloating,
-      bind = $mod, L, exec, hyprlock
+      bind = $mod, L, exec, $ipc lockScreen lock
                         
       # Windows managing
       bind = $mod, left, movefocus, l

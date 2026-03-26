@@ -22,6 +22,7 @@
     zotero
     hyprmon
     lazygit
+    minikube
     catppuccin-discord
     discord
     fastfetch
