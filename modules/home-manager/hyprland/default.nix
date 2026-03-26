@@ -5,7 +5,7 @@
     ./hyprlock.nix
     ./hyprpaper.nix
     ./noctalia.nix
-  ];
+  ];A
 
   home.packages = with pkgs; [
     brightnessctl
@@ -106,7 +106,7 @@
         kb_model =
         kb_options =
         kb_rules =
-        follow_mouse = 1
+        follow_mouse = 0
         accel_profile = flat
         sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
       }

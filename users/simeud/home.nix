@@ -21,6 +21,7 @@
     google-chrome
     zotero
     hyprmon
+    lazygit
     catppuccin-discord
     discord
     fastfetch
