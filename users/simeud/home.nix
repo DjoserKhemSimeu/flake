@@ -23,6 +23,7 @@
     hyprmon
     lazygit
     minikube
+    docker
     catppuccin-discord
     discord
     fastfetch
