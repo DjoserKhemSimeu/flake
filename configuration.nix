@@ -158,6 +158,8 @@
   services.upower.enable = true;
   services.tuned.enable = true;
 
+  # Service for tailscale
+  services.tailscale.enable = true;
   # I don't remember ff
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.hyprland.enableGnomeKeyring = true;

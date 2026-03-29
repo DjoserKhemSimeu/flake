@@ -22,6 +22,7 @@
     zotero
     hyprmon
     lazygit
+    tailscale
     minikube
     docker
     nvtopPackages.nvidia
