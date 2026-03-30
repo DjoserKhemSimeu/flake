@@ -20,6 +20,12 @@
     bitwarden-desktop
     google-chrome
     zotero
+    mpi
+    gcc
+    unzip
+    gnumake
+    glibc
+    glibc.static
     hyprmon
     lazygit
     tailscale
