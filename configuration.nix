@@ -65,8 +65,11 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
-
+  networking.networkmanager = {
+    enable = true;
+    # C'est cette ligne qui fait le lien entre NM et le plugin
+    plugins = [ pkgs.networkmanager-openvpn ];
+  };
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
@@ -103,6 +106,7 @@
   services.displayManager.sddm.autoNumlock = false;
   # Docker setup
   virtualisation.docker.enable = true;
+  virtualisation.cri-o.enable = true;
   users.users.simeud = {
     isNormalUser = true;
     extraGroups = [
@@ -200,13 +204,15 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    (ollama.override { 
+    (ollama.override {
       acceleration = "cuda";
     })
     nvidia-vaapi-driver
     vim
     git
+    cri-o
     home-manager
+    networkmanager-openvpn
     openrazer-daemon
     polychromatic
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -217,6 +223,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

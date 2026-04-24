@@ -122,7 +122,19 @@
       bind = $mod, E, exec, dolphin
       bind = $mod, V, togglefloating,
       bind = $mod, L, exec, $ipc lockScreen lock
-                        
+
+
+
+      # Capture d'écran d'une zone sélectionnée vers le presse-papier
+      bind = , Print, exec, grim -g "$(slurp)" - | wl-copy
+
+      # Capture d'une zone et ouverture dans l'éditeur Swappy (pour annoter)
+      bind = SHIFT, Print, exec, grim -g "$(slurp)" - | swappy -f -
+
+      # Capture de l'écran complet et enregistrement dans un dossier spécifique
+      bind = CTRL, Print, exec, grim ~/Pictures/$(date +'%Y-%m-%d_%Hh%Mm%Ss_screenshot.png')      
+
+              
       # Windows managing
       bind = $mod, left, movefocus, l
       bind = $mod, right, movefocus, r

@@ -23,7 +23,7 @@
     "sd_mod"
     "rtsx_pci_sdmmc"
   ];
-    boot.initrd.kernelModules = [
+  boot.initrd.kernelModules = [
     "nvidia"
     "nvidia_modeset"
     "nvidia_uvm"
@@ -76,7 +76,6 @@
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
   }; # see the note above
-
 
   hardware.graphics = {
     enable = true;
