@@ -61,7 +61,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware.cpu.intel.updateMicrocode = true;
-
+  hardware.bluetooth.enable = true;
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;

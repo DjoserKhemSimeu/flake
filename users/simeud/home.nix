@@ -19,9 +19,12 @@
   home.packages = with pkgs; [
     bitwarden-desktop
     google-chrome
+    obs-studio
+    vlc
     zotero
     rocmPackages.mpi
     gcc
+    lshw
     unzip
     texliveMedium
     gnumake

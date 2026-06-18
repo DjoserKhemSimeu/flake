@@ -6,6 +6,7 @@
   inputs,
   config,
   pkgs,
+  lib,
   ...
 }:
 
@@ -106,7 +107,14 @@
   services.displayManager.sddm.autoNumlock = false;
   # Docker setup
   virtualisation.docker.enable = true;
-  virtualisation.cri-o.enable = true;
+  virtualisation.cri-o = {
+    enable = true;
+    settings = {
+      crio.network = {
+        network_dir = "/var/lib/cni/networks"; # On déplace le dossier pour que /etc/cni soit libre
+      };
+    };
+  };
   users.users.simeud = {
     isNormalUser = true;
     extraGroups = [
@@ -128,6 +136,8 @@
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.etc."cni/net.d".enable = false;
+
 
   environment.pathsToLink = [
     "/share/applications"
@@ -161,6 +171,7 @@
   # Services for nocatlia
   services.upower.enable = true;
   services.tuned.enable = true;
+  services.resolved.enable=true;
 
   # Service for tailscale
   services.tailscale.enable = true;
@@ -179,6 +190,24 @@
     enable = true;
     package = pkgs.ollama-cuda;
   };
+  services.kubernetes = {
+    roles = []; # On ne laisse pas Nix gérer les rôles
+    masterAddress = "localhost";
+    
+    # On installe les paquets mais on désactive la gestion réseau par Nix
+    #kubelet = {
+    #  enable = true;
+    #  extraOpts = ''
+    #    --container-runtime-endpoint=unix:///var/run/crio/crio.sock \
+    #    --pod-manifest-path=/etc/kubernetes/manifests \
+    #    --kubeconfig=/etc/kubernetes/kubelet.conf \
+    #    --fail-swap-on=false
+    #  '';
+    #};
+  };
+  #services.kubernetes.kubelet.cni.config = lib.mkForce {};
+
+
 
   # Install and configure chromium
   programs.chromium = {
@@ -204,15 +233,24 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    # G5k openvpn DNS stuff
+    (pkgs.runCommand "update-systemd-resolved-bin" { } ''
+    mkdir -p $out/bin
+    ln -s ${pkgs.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved $out/bin/
+  '')
     (ollama.override {
       acceleration = "cuda";
     })
     nvidia-vaapi-driver
     vim
     git
+    openconnect
     cri-o
+    kompose
+    kubernetes
     home-manager
-    networkmanager-openvpn
+    openvpn
+    networkmanager
     openrazer-daemon
     polychromatic
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
