@@ -42,12 +42,10 @@
 
       extra-substituters = [
         "https://cache.nixos.org?priority=10"
-        "https://cache.garnix.io?priority=20"
       ];
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
     };
   };
@@ -107,6 +105,7 @@
   services.displayManager.sddm.autoNumlock = false;
   # Docker setup
   virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
   virtualisation.cri-o = {
     enable = true;
     settings = {
@@ -137,7 +136,6 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.etc."cni/net.d".enable = false;
-
 
   environment.pathsToLink = [
     "/share/applications"
@@ -171,7 +169,7 @@
   # Services for nocatlia
   services.upower.enable = true;
   services.tuned.enable = true;
-  services.resolved.enable=true;
+  services.resolved.enable = true;
 
   # Service for tailscale
   services.tailscale.enable = true;
@@ -185,15 +183,10 @@
     startupProfile = "keyboard_purple_white.orp";
   };
 
-  #Ollama conf
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-cuda;
-  };
   services.kubernetes = {
-    roles = []; # On ne laisse pas Nix gérer les rôles
+    roles = [ ]; # On ne laisse pas Nix gérer les rôles
     masterAddress = "localhost";
-    
+
     # On installe les paquets mais on désactive la gestion réseau par Nix
     #kubelet = {
     #  enable = true;
@@ -206,8 +199,6 @@
     #};
   };
   #services.kubernetes.kubelet.cni.config = lib.mkForce {};
-
-
 
   # Install and configure chromium
   programs.chromium = {
@@ -235,12 +226,9 @@
   environment.systemPackages = with pkgs; [
     # G5k openvpn DNS stuff
     (pkgs.runCommand "update-systemd-resolved-bin" { } ''
-    mkdir -p $out/bin
-    ln -s ${pkgs.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved $out/bin/
-  '')
-    (ollama.override {
-      acceleration = "cuda";
-    })
+      mkdir -p $out/bin
+      ln -s ${pkgs.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved $out/bin/
+    '')
     nvidia-vaapi-driver
     vim
     git
@@ -261,7 +249,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

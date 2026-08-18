@@ -9,7 +9,6 @@
     ./chromium
     ./ghostty
     ./hyprland
-    ./nixvim
     ./starship
     ./zsh
   ];

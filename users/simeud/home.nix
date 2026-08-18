@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 
@@ -33,8 +34,11 @@
     slurp
     swappy
     wl-clipboard
+    wtype
     glibc.static
-    hyprmon
+    (hyprmon.overrideAttrs {
+      src = inputs.hyprmon;
+    })
     lazygit
     tailscale
     minikube
@@ -49,7 +53,6 @@
     fastfetch
     openrgb-with-all-plugins
     signal-desktop
-    silver-searcher
     vscode
   ];
 

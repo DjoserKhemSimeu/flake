@@ -19,21 +19,13 @@
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.noctalia-qs.follows = "noctalia-qs";
-    };
-
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs";
+      url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+    hyprmon = {
+      url = "github:erans/hyprmon";
+      flake = false;
     };
-
   };
   outputs =
     inputs@{
@@ -55,7 +47,10 @@
           { programs.nix-index-database.comma.enable = true; }
 
           catppuccin.nixosModules.catppuccin
-          { catppuccin.enable = true; }
+          {
+            catppuccin.enable = true;
+            catppuccin.autoEnable = true;
+          }
 
           ./users/simeud/default.nix
           inputs.home-manager.nixosModules.home-manager
