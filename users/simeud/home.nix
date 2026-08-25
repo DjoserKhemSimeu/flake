@@ -54,6 +54,7 @@
     openrgb-with-all-plugins
     signal-desktop
     vscode
+    antigravity-cli
   ];
 
 }

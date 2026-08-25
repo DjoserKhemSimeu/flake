@@ -15,6 +15,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.mango.nixosModules.mango
   ];
 
   nix = {
@@ -101,7 +102,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-  services.displayManager.defaultSession = "hyprland";
+  services.displayManager.defaultSession = "mango";
   services.displayManager.sddm.autoNumlock = false;
   # Docker setup
   virtualisation.docker.enable = true;
@@ -133,6 +134,9 @@
     withUWSM = true; # recommended for most users
     xwayland.enable = true; # Xwayland can be disabled.
   };
+
+  # Mango setup
+  programs.mango.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.etc."cni/net.d".enable = false;

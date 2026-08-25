@@ -26,6 +26,10 @@
       url = "github:erans/hyprmon";
       flake = false;
     };
+    mango.url = "github:stepbrobd/mango/switcher";
+    mango.inputs.nixpkgs.follows = "nixpkgs";
+    mangomon.url= "github:stepbrobd/mangomon";
+    mangomon.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     inputs@{
