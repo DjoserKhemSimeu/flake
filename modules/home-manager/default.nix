@@ -9,6 +9,7 @@
     ./chromium
     ./ghostty
     ./hyprland
+    ./mango
     ./starship
     ./zsh
   ];
